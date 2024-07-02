@@ -5,8 +5,8 @@ networks:
 
 services:
   rabbit-1:
-    # image: rabbitmq:3.13-management
-    image: rabbitmq:3.12-management
+    # image: rabbitmq:3-management
+    image: 'pivotalrabbitmq/rabbitmq:main'
     volumes:
       - ./config/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
       - ./config/enabled_plugins:/etc/rabbitmq/enabled_plugins:ro
@@ -26,8 +26,8 @@ services:
     depends_on:
       - etcd
   rabbit-2:
-    # image: rabbitmq:3.13-management
-    image: rabbitmq:3.12-management
+    # image: rabbitmq:3-management
+    image: 'pivotalrabbitmq/rabbitmq:main'
     volumes:
       - ./config/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
       - ./config/enabled_plugins:/etc/rabbitmq/enabled_plugins:ro
@@ -47,8 +47,8 @@ services:
     depends_on:
       - etcd
   rabbit-3:
-    # image: rabbitmq:3.13-management
-    image: rabbitmq:3.12-management
+    # image: rabbitmq:3-management
+    image: 'pivotalrabbitmq/rabbitmq:main'
     volumes:
       - ./config/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf:ro
       - ./config/enabled_plugins:/etc/rabbitmq/enabled_plugins:ro
