@@ -1,0 +1,77 @@
+networks:
+  rabbitnet:
+    name: rabbitnet
+    driver: bridge
+
+services:
+  rabbit-1:
+    image: rabbitmq:3.13-management
+    volumes:
+      - ./config/rabbitmq.conf:/config/rabbitmq.conf
+      - ./data/rabbit-1:/var/lib/rabbitmq/
+    environment:
+      - RABBITMQ_CONFIG_FILE=/config/rabbitmq.conf
+      - RABBITMQ_ERLANG_COOKIE=QWERTYUIOP
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+    hostname: rabbit-1
+    container_name: rabbit-1
+    networks:
+      - rabbitnet
+    ports:
+      - 5671:5672
+      - 15671:15672
+    depends_on:
+      - etcd
+  rabbit-2:
+    image: rabbitmq:3.13-management
+    volumes:
+      - ./config/rabbitmq.conf:/config/rabbitmq.conf
+      - ./data/rabbit-2:/var/lib/rabbitmq/
+    environment:
+      - RABBITMQ_CONFIG_FILE=/config/rabbitmq.conf
+      - RABBITMQ_ERLANG_COOKIE=QWERTYUIOP
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+    hostname: rabbit-2
+    container_name: rabbit-2
+    networks:
+      - rabbitnet
+    ports:
+      - 5672:5672
+      - 15672:15672
+    depends_on:
+      - etcd
+  rabbit-3:
+    image: rabbitmq:3.13-management
+    volumes:
+      - ./config/rabbitmq.conf:/config/rabbitmq.conf
+      - ./data/rabbit-3:/var/lib/rabbitmq/
+    environment:
+      - RABBITMQ_CONFIG_FILE=/config/rabbitmq.conf
+      - RABBITMQ_ERLANG_COOKIE=QWERTYUIOP
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=password
+    hostname: rabbit-3
+    container_name: rabbit-3
+    networks:
+      - rabbitnet
+    ports:
+      - 5673:5672
+      - 15673:15672
+    depends_on:
+      - etcd
+  etcd:
+    image: bitnami/etcd:3.5.14
+    hostname: etcd
+    container_name: etcd
+    networks:
+      - rabbitnet
+    environment:
+      - ALLOW_NONE_AUTHENTICATION=yes
+      - ETCD_ADVERTISE_CLIENT_URLS=http://etcd:2379
+    volumes:
+      - ./etcd:/bitnami/etcd
+    ports:
+      - 2379:2379
+      - 2380:2380
