@@ -22,6 +22,6 @@ rmq-perms:
 	sudo chown -R '999:999' data
 
 logs:
-	docker compose logs rabbitmq-1 > $(CURDIR)/rabbitmq-1-docker.log
-	docker compose logs rabbitmq-2 > $(CURDIR)/rabbitmq-2-docker.log
-	docker compose logs rabbitmq-3 > $(CURDIR)/rabbitmq-3-docker.log
+	docker compose logs rabbit-1 > $(CURDIR)/rabbit-1-docker.log
+	docker compose logs rabbit-2 > $(CURDIR)/rabbit-2-docker.log
+	docker compose logs rabbit-3 > $(CURDIR)/rabbit-3-docker.log
